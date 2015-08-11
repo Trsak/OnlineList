@@ -1,0 +1,18 @@
+name: OnlineList
+version: 1.00
+author: Trsak
+main: cz.trsak.onlinelist.Main
+depend: [Vault]
+description: Plugin for listing online players by groups.
+permissions:
+  onlinelist.use:
+    description: Allows to use /list command.
+    default: true
+  onlinelist.reload:
+    description: Allows to use /listreload command.
+    default: false
+commands:
+  list:
+    description: List all online players with groups.
+  listreload:
+    description: Reload OnlineList config.
