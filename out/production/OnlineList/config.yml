@@ -1,6 +1,0 @@
-#Colors
-PlayersNameColor: "&6"
-#Messages
-PermissionsError: "&4You don't have permission to do that!"
-PlayersOnline: "&6Players online (%players_online%):"
-ConfigReload: "&2Config was successfully reloaded."
