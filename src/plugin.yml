@@ -1,5 +1,5 @@
 name: OnlineList
-version: 1.00
+version: 1.1
 author: Trsak
 main: cz.trsak.onlinelist.Main
 depend: [Vault]

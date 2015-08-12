@@ -21,7 +21,7 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        System.out.print("[OnlineList] Loading OnlineList v" + this.getDescription().getVersion() + ".");
+        getLogger().info("[OnlineList] Loading OnlineList v" + this.getDescription().getVersion() + ".");
         this.getConfig().options().copyDefaults(true);
         this.saveConfig();
         setupPermissions();
@@ -29,7 +29,7 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        System.out.print("[OnlineList] Disabling OnlineList v" + this.getDescription().getVersion() + ".");
+        getLogger().info("[OnlineList] Disabling OnlineList v" + this.getDescription().getVersion() + ".");
     }
 
     private boolean setupPermissions() {
@@ -40,7 +40,7 @@ public class Main extends JavaPlugin {
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if(cmd.getName().equalsIgnoreCase("listreload")) {
-            if (sender.hasPermission("onlinelist.use")) {
+            if (sender.hasPermission("onlinelist.reload")) {
                 this.getConfig();
                 this.reloadConfig();
                 this.saveConfig();
