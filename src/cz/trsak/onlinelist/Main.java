@@ -51,9 +51,9 @@ public class Main extends JavaPlugin {
         }
         else if(cmd.getName().equalsIgnoreCase("list")) {
             if (sender.hasPermission("onlinelist.use")) {
-                ArrayList<String> groups = new ArrayList<String>();
+                ArrayList<String> groups = new ArrayList<>();
                 Map<String, List<String>> playerData = new HashMap<>();
-                groups = new ArrayList<String>();
+                groups = new ArrayList<>();
                 int players = 0;
 
                 for (Player p : Bukkit.getServer().getOnlinePlayers()) {
@@ -64,7 +64,7 @@ public class Main extends JavaPlugin {
                     }
 
                     if (playerData.get(group) == null) {
-                        playerData.put(group, new ArrayList<String>());
+                        playerData.put(group, new ArrayList<>());
                     }
 
                     playerData.get(group).add(p.getDisplayName());
@@ -79,13 +79,13 @@ public class Main extends JavaPlugin {
                 finalText += ChatColor.translateAlternateColorCodes('&', this.getConfig().getString("PlayersOnline").replace("%players_online%", playersOnline)) + "\n";
 
                 for (String group : groups) {
-                    finalText += ChatColor.translateAlternateColorCodes('&', this.getConfig().getString("PlayersNameColor")) + group + ChatColor.WHITE + ": " + ChatColor.YELLOW;
+                    finalText += ChatColor.translateAlternateColorCodes('&', this.getConfig().getString("GroupsPrefix")) + group + ChatColor.translateAlternateColorCodes('&', this.getConfig().getString("GroupsSufix")) + ": ";
 
                     int size = playerData.get(group).size();
                     for (String user : playerData.get(group)) {
-                        finalText += user;
+                        finalText += ChatColor.translateAlternateColorCodes('&', this.getConfig().getString("PlayersPrefix")) + user + ChatColor.translateAlternateColorCodes('&', this.getConfig().getString("PlayersSufix"));
                         if (--size != 0) {
-                            finalText += ", ";
+                            finalText += ChatColor.translateAlternateColorCodes('&', this.getConfig().getString("PlayersDivider"));
                         }
                     }
 

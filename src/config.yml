@@ -1,5 +1,12 @@
-#Colors
-PlayersNameColor: "&6"
+#Config
+PlayersDivider: ", "
+
+#Prefixes
+PlayersPrefix: "&6"
+PlayersSufix: ""
+GroupsPrefix: "&6"
+GroupsSufix: "&f"
+
 #Messages
 PermissionsError: "&4You don't have permission to do that!"
 PlayersOnline: "&6Players online (%players_online%):"
