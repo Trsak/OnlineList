@@ -78,10 +78,23 @@ public class Main extends JavaPlugin {
 
                 finalText += ChatColor.translateAlternateColorCodes('&', this.getConfig().getString("PlayersOnline").replace("%players_online%", playersOnline)) + "\n";
 
-                for (String group : groups) {
-                    finalText += ChatColor.translateAlternateColorCodes('&', this.getConfig().getString("GroupsPrefix")) + group + ChatColor.translateAlternateColorCodes('&', this.getConfig().getString("GroupsSufix")) + ": ";
 
+
+                for (String group : groups) {
+                    finalText += ChatColor.translateAlternateColorCodes('&', this.getConfig().getString("GroupsPrefix"));
+
+                    if (this.getConfig().getString(group) != null) {
+                        finalText += this.getConfig().getString(group);
+                    }
+                    else {
+                        finalText += group;
+                    }
                     int size = playerData.get(group).size();
+
+                    String inGroup = Integer.toString(size);
+
+                    finalText += ChatColor.translateAlternateColorCodes('&', this.getConfig().getString("GroupsSufix")) + "(" + inGroup + ")" + ChatColor.translateAlternateColorCodes('&', this.getConfig().getString("AfterGroups"));
+
                     for (String user : playerData.get(group)) {
                         finalText += ChatColor.translateAlternateColorCodes('&', this.getConfig().getString("PlayersPrefix")) + user + ChatColor.translateAlternateColorCodes('&', this.getConfig().getString("PlayersSufix"));
                         if (--size != 0) {

@@ -1,5 +1,9 @@
 #Config
 PlayersDivider: ", "
+AfterGroups: "&f: "
+
+#Groups Aliases
+default: "Users"
 
 #Prefixes
 PlayersPrefix: "&6"
