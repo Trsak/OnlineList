@@ -1,15 +1,9 @@
 package cz.trsak.onlinelist;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
 import java.net.URL;
-
-import org.apache.commons.io.FileUtils;
-import org.bukkit.configuration.file.YamlConfiguration;
 
 public class VersionChecker {
     String URLGit = "https://raw.githubusercontent.com/Trsak/OnlineList/master/src/plugin.yml";
@@ -34,10 +28,13 @@ public class VersionChecker {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        System.out.print(GitVersion);
+        System.out.print(Version);
     }
 
     public boolean Check() {
-        if (Version != GitVersion) {
+        if (!Version.equals(GitVersion)) {
             return false;
         }
         return true;
