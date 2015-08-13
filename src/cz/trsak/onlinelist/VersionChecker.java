@@ -28,9 +28,6 @@ public class VersionChecker {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        System.out.print(GitVersion);
-        System.out.print(Version);
     }
 
     public boolean Check() {
