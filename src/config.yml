@@ -3,7 +3,14 @@ PlayersDivider: ", "
 AfterGroups: "&f: "
 
 #Groups Aliases
-default: "Users"
+Aliases:
+  default: "Users"
+
+#Groups Sorting (From First to last, unlisted groups will be after those)
+GroupSort:
+  - Owner
+  - Admin
+  - default
 
 #Prefixes
 PlayersPrefix: "&6"

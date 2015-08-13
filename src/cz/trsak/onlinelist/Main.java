@@ -15,6 +15,7 @@ import net.milkbowl.vault.permission.Permission;
 
 public class Main extends JavaPlugin {
     public static Permission perms = null;
+    private static boolean Version;
 
     public Main() {
     }
@@ -25,6 +26,16 @@ public class Main extends JavaPlugin {
         this.getConfig().options().copyDefaults(true);
         this.saveConfig();
         setupPermissions();
+
+        VersionChecker Version = new VersionChecker(getDescription().getVersion());
+        this.Version = Version.Check();
+
+        if (this.Version) {
+            getLogger().info("[OnlineList] Is up to date!");
+        }
+        else {
+            getLogger().info("[OnlineList] There's a new update for OnlineList!");
+        }
     }
 
     @Override
@@ -40,7 +51,7 @@ public class Main extends JavaPlugin {
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if(cmd.getName().equalsIgnoreCase("listreload")) {
-            if (sender.hasPermission("onlinelist.reload")) {
+            if (sender.hasPermission("onlinelist.reload")||sender.isOp()||sender.hasPermission("onlinelist.*")) {
                 this.getConfig();
                 this.reloadConfig();
                 this.saveConfig();
@@ -50,7 +61,7 @@ public class Main extends JavaPlugin {
             }
         }
         else if(cmd.getName().equalsIgnoreCase("list")) {
-            if (sender.hasPermission("onlinelist.use")) {
+            if (sender.hasPermission("onlinelist.use")||sender.isOp()||sender.hasPermission("onlinelist.*")) {
                 ArrayList<String> groups = new ArrayList<>();
                 Map<String, List<String>> playerData = new HashMap<>();
                 groups = new ArrayList<>();
@@ -72,19 +83,31 @@ public class Main extends JavaPlugin {
                     players += 1;
                 }
 
+                List<String> sort = getConfig().getStringList("GroupSort");
+                int i = 0;
+
+                for (String Group : sort) {
+                    if(groups.contains(Group)) {
+                        Integer toMoveIndex = groups.indexOf(Group);
+                        String toMove = groups.get(toMoveIndex);
+
+                        groups.set(toMoveIndex, groups.get(i));
+                        groups.set(i, toMove);
+                        i += 1;
+                    }
+                }
+
                 String finalText = "";
 
                 String playersOnline = players + "";
 
                 finalText += ChatColor.translateAlternateColorCodes('&', this.getConfig().getString("PlayersOnline").replace("%players_online%", playersOnline)) + "\n";
 
-
-
                 for (String group : groups) {
                     finalText += ChatColor.translateAlternateColorCodes('&', this.getConfig().getString("GroupsPrefix"));
 
-                    if (this.getConfig().getString(group) != null) {
-                        finalText += this.getConfig().getString(group);
+                    if (this.getConfig().getConfigurationSection("Aliases").getString(group) != null) {
+                        finalText += this.getConfig().getConfigurationSection("Aliases").getString(group);
                     }
                     else {
                         finalText += group;
@@ -108,6 +131,12 @@ public class Main extends JavaPlugin {
                 sender.sendMessage(finalText);
             } else {
                 sender.sendMessage(ChatColor.translateAlternateColorCodes('&', this.getConfig().getString("PermissionsError")));
+            }
+        }
+
+        if (!this.Version) {
+            if (sender.hasPermission("onlinelist.version")||sender.hasPermission("onlinelist.*")) {
+                sender.sendMessage(ChatColor.GOLD + "[OnlineList] " + ChatColor.YELLOW + "New version is available!");
             }
         }
 
